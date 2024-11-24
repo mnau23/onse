@@ -9,6 +9,9 @@ import (
 func main() {
 	// load app configuration
 	config := helpers.NewConfig()
+	if config.DebugMode {
+		fmt.Printf("config is %+v\n", config)
+	}
 
 	// read and parse the CSV file
 	participants, err := helpers.GetParticipants(config.CsvFile)
