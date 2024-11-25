@@ -40,8 +40,16 @@ func GetParticipants(filename string) ([]Participant, error) {
 		}
 		participant_email := row[1]
 		participant_name := row[2]
+		message := row[3]
 
-		participants = append(participants, Participant{Id: participant_id, Email: participant_email, Name: participant_name})
+		p := Participant{
+			Id:      participant_id,
+			Email:   participant_email,
+			Name:    participant_name,
+			Message: message,
+		}
+
+		participants = append(participants, p)
 	}
 
 	return participants, nil
