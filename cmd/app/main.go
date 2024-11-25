@@ -26,7 +26,7 @@ func main() {
 	}
 
 	for _, p := range Participants {
-		fmt.Printf("Participant %s has email %s\n", p.Name, p.Email)
+		fmt.Printf("Participant %d: %s - %s - exclusions %v\n", p.Id, p.Name, p.Email, p.Exclusions)
 	}
 
 	// TODO: setup email data for each participant
