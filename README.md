@@ -1,6 +1,6 @@
 # Onse
 
-> TODO: Secret Santa app
+> A Go application to organize Secret Santa with friends.
 
 ## Documentation
 
