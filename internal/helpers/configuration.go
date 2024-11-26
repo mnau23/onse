@@ -18,15 +18,13 @@ type Config struct {
 
 func NewConfig() Config {
 	// load the .env file
-	err := godotenv.Load()
-	if err != nil {
+	if err := godotenv.Load(); err != nil {
 		log.Fatalf("unable to load .env file: %v", err)
 	}
 
 	// parse vars into Config
 	cfg := Config{}
-	err = env.Parse(&cfg)
-	if err != nil {
+	if err := env.Parse(&cfg); err != nil {
 		log.Fatalf("unable to parse env vars: %v", err)
 	}
 
