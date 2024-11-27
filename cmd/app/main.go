@@ -9,23 +9,23 @@ import (
 
 func main() {
 	// load app configuration
-	config := helpers.NewConfig()
-	smtp := config.Smtp
-	sender := config.EmailSender
-	template := config.EmailTemplate
-	ParticipantsList := config.CsvFile
+	Config := helpers.NewConfig()
+	Smtp := Config.Smtp
+	EmailSender := Config.EmailSender
+	EmailTemplate := Config.EmailTemplate
+	ParticipantsList := Config.CsvFile
 
-	if config.DebugMode {
-		fmt.Printf("config is %+v\n\n", config)
+	if Config.DebugMode {
+		fmt.Printf("config is %+v\n\n", Config)
 	}
 
 	// read and parse the CSV file
-	participants, err := helpers.GetParticipants(ParticipantsList)
+	Participants, err := helpers.GetParticipants(ParticipantsList)
 	if err != nil {
 		log.Fatalf("error reading CSV: %s", err)
 	}
 
-	for _, p := range participants {
+	for _, p := range Participants {
 		fmt.Printf("Participant %s has email %s\n", p.Name, p.Email)
 	}
 
@@ -36,7 +36,7 @@ func main() {
 		Message:     "a random text here",
 	}
 	// TODO: then add it to template
-	body, err := email.ParseTemplate(template, data)
+	body, err := email.ParseTemplate(EmailTemplate, data)
 	if err != nil {
 		fmt.Println("error parsing template:", err)
 		return
@@ -44,7 +44,7 @@ func main() {
 	// fmt.Printf("\nBody: %s\n", body)
 
 	// TODO: finally send email
-	err = smtp.Send(sender, "todo-participant-email", body)
+	err = Smtp.Send(EmailSender, "todo-participant-email", body)
 	if err != nil {
 		fmt.Println("error sending email:", err)
 		return

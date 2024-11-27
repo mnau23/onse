@@ -9,6 +9,13 @@ import (
 	"strconv"
 )
 
+type Participant struct {
+	Id      int
+	Email   string
+	Name    string
+	Message string
+}
+
 // reads a CSV file and returns a slice of Participant objects
 func GetParticipants(filename string) ([]Participant, error) {
 	file, err := os.Open(filename)
