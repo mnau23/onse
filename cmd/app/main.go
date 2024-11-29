@@ -10,15 +10,12 @@ import (
 func main() {
 	config := helpers.NewConfig()
 	smtp := config.Smtp
-	emailSender := config.EmailSender
-	emailTemplate := config.EmailTemplate
-	participantsList := config.CsvFile
 
 	if config.DebugMode {
 		fmt.Printf("config: %+v\n\n", config)
 	}
 
-	participants, err := helpers.GetParticipants(participantsList)
+	participants, err := helpers.GetParticipants(config.CsvFile)
 	if err != nil {
 		log.Fatalf("error reading CSV: %s", err)
 	}
@@ -32,11 +29,19 @@ func main() {
 	emailDataList := helpers.GetParticipantEmailData(participants, pairings)
 
 	for _, ed := range emailDataList {
-		body, err := email.ParseHtml(emailTemplate, ed)
+		body, err := email.ParseHtml(config.EmailTemplate, ed)
 		if err != nil {
 			log.Fatalf("error parsing template: %s", err)
 		}
-		smtpErr := smtp.Send(emailSender, ed.GifterEmail, body)
+
+		var receiverEmail string
+		if config.DebugMode {
+			receiverEmail = config.EmailReceiverTest
+		} else {
+			receiverEmail = ed.GifterEmail
+		}
+
+		smtpErr := smtp.Send(config.EmailSender, receiverEmail, body)
 		if smtpErr != nil {
 			log.Fatalf("error sending email: %s", err)
 		}
