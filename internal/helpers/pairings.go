@@ -100,13 +100,12 @@ func GetParticipantEmailData(participants []Participant, pairings map[int]int) [
 		receiverId := pairings[gifter.Id]
 		receiver := participantsMap[receiverId]
 
-		emailData := email.EmailData{
+		list = append(list, email.EmailData{
 			GifterName:   gifter.Name,
 			GifterEmail:  gifter.Email,
 			ReceiverName: receiver.Name,
 			Message:      gifter.Message,
-		}
-		list = append(list, emailData)
+		})
 	}
 
 	return list
