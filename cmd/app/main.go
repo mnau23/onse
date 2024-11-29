@@ -9,46 +9,43 @@ import (
 
 func main() {
 	// load app configuration
-	Config := helpers.NewConfig()
-	Smtp := Config.Smtp
-	EmailSender := Config.EmailSender
-	EmailTemplate := Config.EmailTemplate
-	ParticipantsList := Config.CsvFile
+	config := helpers.NewConfig()
+	smtp := config.Smtp
+	emailSender := config.EmailSender
+	emailTemplate := config.EmailTemplate
+	participantsList := config.CsvFile
 
-	if Config.DebugMode {
-		fmt.Printf("config is %+v\n\n", Config)
+	if config.DebugMode {
+		fmt.Printf("config is %+v\n\n", config)
 	}
 
-	// read and parse the CSV file
-	Participants, err := helpers.GetParticipants(ParticipantsList)
+	participants, err := helpers.GetParticipants(participantsList)
 	if err != nil {
 		log.Fatalf("error reading CSV: %s", err)
 	}
 
-	for _, p := range Participants {
-		fmt.Printf("Participant %d: %s - %s - exclusions %v\n", p.Id, p.Name, p.Email, p.Exclusions)
+	fmt.Println("this year participants are:")
+	for _, p := range participants {
+		fmt.Printf("%d: %s - %s with exclusions on %v\n", p.Id, p.Name, p.Email, p.Exclusions)
 	}
 
-	// TODO: setup email data for each participant
-	data := email.EmailData{
-		Name:        "John Doe",
-		SecretSanta: "Jane Doe",
-		Message:     "a random text here",
+	pairings := helpers.GeneratePairings(participants)
+	for gifter, receiver := range pairings {
+		fmt.Printf("Participant %d has %d\n", gifter, receiver)
 	}
-	// TODO: then add it to template
-	body, err := email.ParseTemplate(EmailTemplate, data)
-	if err != nil {
-		fmt.Println("error parsing template:", err)
-		return
-	}
-	// fmt.Printf("\nBody: %s\n", body)
+	fmt.Print("\n")
 
-	// TODO: finally send email
-	err = Smtp.Send(EmailSender, "todo-participant-email", body)
-	if err != nil {
-		fmt.Println("error sending email:", err)
-		return
-	}
+	emailDataList := helpers.GetParticipantEmailData(participants, pairings)
 
-	fmt.Println("Email sent successfully!")
+	for _, ed := range emailDataList {
+		body, err := email.ParseHtml(emailTemplate, ed)
+		if err != nil {
+			log.Fatalf("error parsing template: %s", err)
+		}
+		smtpErr := smtp.Send(emailSender, "todo-participant-email", body)
+		if smtpErr != nil {
+			log.Fatalf("error sending email: %s", err)
+		}
+	}
+	fmt.Println("\n📬 emails sent!")
 }

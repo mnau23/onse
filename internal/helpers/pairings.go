@@ -3,6 +3,7 @@ package helpers
 import (
 	"fmt"
 	"math/rand/v2"
+	"onse/internal/email"
 )
 
 func GeneratePairings(participants []Participant) map[int]int {
@@ -85,4 +86,28 @@ func find(list []int, value int) bool {
 		}
 	}
 	return false
+}
+
+func GetParticipantEmailData(participants []Participant, pairings map[int]int) []email.EmailData {
+	participantsMap := make(map[int]Participant)
+	var list []email.EmailData
+
+	for _, p := range participants {
+		participantsMap[p.Id] = p
+	}
+
+	for _, gifter := range participants {
+		receiverId := pairings[gifter.Id]
+		receiver := participantsMap[receiverId]
+
+		emailData := email.EmailData{
+			GifterName:   gifter.Name,
+			GifterEmail:  gifter.Email,
+			ReceiverName: receiver.Name,
+			Message:      gifter.Message,
+		}
+		list = append(list, emailData)
+	}
+
+	return list
 }
