@@ -30,13 +30,14 @@ func (smtpCfg *SmtpConfig) Send(sender, recipient, message string) error {
 }
 
 type EmailData struct {
-	Name        string
-	SecretSanta string
-	Message     string
+	GifterName   string
+	GifterEmail  string
+	ReceiverName string
+	Message      string
 }
 
 // parses the given HTML template and fills it with EmailData
-func ParseTemplate(templatePath string, data EmailData) (string, error) {
+func ParseHtml(templatePath string, data EmailData) (string, error) {
 	t, err := template.ParseFiles(templatePath)
 	if err != nil {
 		return "", err

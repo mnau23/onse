@@ -8,47 +8,43 @@ import (
 )
 
 func main() {
-	// load app configuration
-	Config := helpers.NewConfig()
-	Smtp := Config.Smtp
-	EmailSender := Config.EmailSender
-	EmailTemplate := Config.EmailTemplate
-	ParticipantsList := Config.CsvFile
+	config := helpers.NewConfig()
+	smtp := config.Smtp
 
-	if Config.DebugMode {
-		fmt.Printf("config is %+v\n\n", Config)
+	if config.DebugMode {
+		fmt.Printf("config: %+v\n\n", config)
 	}
 
-	// read and parse the CSV file
-	Participants, err := helpers.GetParticipants(ParticipantsList)
+	participants, err := helpers.GetParticipants(config.CsvFile)
 	if err != nil {
 		log.Fatalf("error reading CSV: %s", err)
 	}
 
-	for _, p := range Participants {
-		fmt.Printf("Participant %s has email %s\n", p.Name, p.Email)
+	fmt.Println("this year participants are:")
+	for _, p := range participants {
+		fmt.Printf("%d: %s (%s) with exclusion for %v\n", p.Id, p.Name, p.Email, p.Exclusions)
 	}
 
-	// TODO: setup email data for each participant
-	data := email.EmailData{
-		Name:        "John Doe",
-		SecretSanta: "Jane Doe",
-		Message:     "a random text here",
-	}
-	// TODO: then add it to template
-	body, err := email.ParseTemplate(EmailTemplate, data)
-	if err != nil {
-		fmt.Println("error parsing template:", err)
-		return
-	}
-	// fmt.Printf("\nBody: %s\n", body)
+	pairings := helpers.GeneratePairings(participants)
+	emailDataList := helpers.GetEmailData(participants, pairings)
 
-	// TODO: finally send email
-	err = Smtp.Send(EmailSender, "todo-participant-email", body)
-	if err != nil {
-		fmt.Println("error sending email:", err)
-		return
-	}
+	for _, ed := range emailDataList {
+		body, err := email.ParseHtml(config.EmailTemplate, ed)
+		if err != nil {
+			log.Fatalf("error parsing template: %s", err)
+		}
 
-	fmt.Println("Email sent successfully!")
+		var receiverEmail string
+		if config.DebugMode {
+			receiverEmail = config.EmailReceiverTest
+		} else {
+			receiverEmail = ed.GifterEmail
+		}
+
+		smtpErr := smtp.Send(config.EmailSender, receiverEmail, body)
+		if smtpErr != nil {
+			log.Fatalf("error sending email: %s", err)
+		}
+	}
+	fmt.Println("\n📬 emails sent!")
 }

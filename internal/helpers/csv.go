@@ -2,6 +2,7 @@ package helpers
 
 import (
 	"encoding/csv"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
@@ -10,10 +11,11 @@ import (
 )
 
 type Participant struct {
-	Id      int
-	Email   string
-	Name    string
-	Message string
+	Id         int
+	Name       string
+	Email      string
+	Exclusions []int
+	Message    string
 }
 
 // reads a CSV file and returns a slice of Participant objects
@@ -33,7 +35,7 @@ func GetParticipants(filename string) ([]Participant, error) {
 
 	var participants []Participant
 	for {
-		row, err := reader.Read()
+		record, err := reader.Read()
 		if err != nil {
 			if errors.Is(err, io.EOF) {
 				break
@@ -42,18 +44,28 @@ func GetParticipants(filename string) ([]Participant, error) {
 		}
 
 		// parse row elements
-		participantId, err := strconv.Atoi(row[0])
-		if err != nil {
-			return nil, fmt.Errorf("failed to parse ID: %w", err)
-		}
+		participantId, _ := strconv.Atoi(record[0])
+		exclusions, _ := getExclusions(record[3])
 
 		participants = append(participants, Participant{
-			Id:      participantId,
-			Email:   row[1],
-			Name:    row[2],
-			Message: row[3],
+			Id:         participantId,
+			Name:       record[1],
+			Email:      record[2],
+			Exclusions: exclusions,
+			Message:    record[4],
 		})
 	}
 
 	return participants, nil
+}
+
+// converts the strings with a JSON array into a slice
+func getExclusions(field string) ([]int, error) {
+	var exclusions []int
+
+	if err := json.Unmarshal([]byte(field), &exclusions); err != nil {
+		return nil, fmt.Errorf("failed to parse exclusions: %w", err)
+	}
+
+	return exclusions, nil
 }
