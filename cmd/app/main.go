@@ -26,7 +26,7 @@ func main() {
 	}
 
 	pairings := helpers.GeneratePairings(participants)
-	emailDataList := helpers.GetParticipantEmailData(participants, pairings)
+	emailDataList := helpers.GetEmailData(participants, pairings)
 
 	for _, ed := range emailDataList {
 		body, err := email.ParseHtml(config.EmailTemplate, ed)
