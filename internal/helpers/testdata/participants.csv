@@ -1,0 +1,5 @@
+id,name,email,exclusions,message
+1,Jane,jane@fake.com,"[]","hey"
+2,John,john@fake.com,"[4]","something"
+3,Alice,alice@fake.com,"[1]","random"
+4,Bob,bob@fake.com,"[2,3]","whatsup"
