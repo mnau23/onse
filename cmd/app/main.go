@@ -41,7 +41,7 @@ func main() {
 			receiverEmail = ed.GifterEmail
 		}
 
-		smtpErr := smtp.Send(config.EmailSender, receiverEmail, body)
+		smtpErr := smtp.Send(receiverEmail, body)
 		if smtpErr != nil {
 			log.Fatalf("error sending email: %s", err)
 		}

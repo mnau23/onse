@@ -16,9 +16,9 @@ type SmtpConfig struct {
 }
 
 // sends email message via SMTP
-func (smtpCfg *SmtpConfig) Send(sender, recipient, message string) error {
+func (smtpCfg *SmtpConfig) Send(recipient, message string) error {
 	msg := gomail.NewMessage()
-	msg.SetHeader("From", sender)
+	msg.SetHeader("From", smtpCfg.Username)
 	msg.SetHeader("To", recipient)
 	msg.SetHeader("Subject", "🎅🏻 Ho Ho Ho, your Secret Santa is here!")
 	msg.SetBody("text/html", message)

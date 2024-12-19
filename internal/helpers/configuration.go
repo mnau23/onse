@@ -13,7 +13,6 @@ type Config struct {
 	CsvFile           string `env:"CSV_FILE,required"`
 	Smtp              email.SmtpConfig
 	EmailReceiverTest string `env:"EMAIL_RECEIVER_TEST,required"`
-	EmailSender       string `env:"EMAIL_SENDER,required"`
 	EmailTemplate     string `env:"EMAIL_TEMPLATE,required"`
 }
 
