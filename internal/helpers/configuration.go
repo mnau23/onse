@@ -15,6 +15,7 @@ type Config struct {
 	EmailTemplate string `env:"EMAIL_TEMPLATE,required"`
 	Budget        int    `env:"BUDGET"`
 	// testing
+	DryRun            bool   `env:"DRY_RUN" envDefault:"false"`
 	DebugMode         bool   `env:"DEBUG_MODE" envDefault:"false"`
 	EmailReceiverTest string `env:"EMAIL_RECEIVER_TEST,required"`
 }

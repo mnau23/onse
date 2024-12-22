@@ -34,6 +34,10 @@ func main() {
 			log.Fatalf("error parsing template: %s", err)
 		}
 
+		if config.DryRun {
+			break
+		}
+
 		var receiverEmail string
 		if config.DebugMode {
 			receiverEmail = config.EmailReceiverTest
@@ -46,5 +50,10 @@ func main() {
 			log.Fatalf("error sending email: %s", err)
 		}
 	}
-	fmt.Println("\n📬 emails sent!")
+
+	if config.DryRun {
+		fmt.Println("\n[DRY RUN]: emails will not be sent.")
+	} else {
+		fmt.Println("\n📬 emails sent!")
+	}
 }
