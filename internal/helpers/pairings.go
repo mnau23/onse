@@ -88,7 +88,7 @@ func find(list []int, value int) bool {
 	return false
 }
 
-func GetEmailData(participants []Participant, pairings map[int]int) []email.EmailData {
+func GetEmailData(participants []Participant, pairings map[int]int, budget int) []email.EmailData {
 	participantsMap := make(map[int]Participant)
 	var list []email.EmailData
 
@@ -104,6 +104,7 @@ func GetEmailData(participants []Participant, pairings map[int]int) []email.Emai
 			GifterName:   gifter.Name,
 			GifterEmail:  gifter.Email,
 			ReceiverName: receiver.Name,
+			Budget:       budget,
 			Message:      gifter.Message,
 		})
 	}

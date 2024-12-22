@@ -33,6 +33,7 @@ type EmailData struct {
 	GifterName   string
 	GifterEmail  string
 	ReceiverName string
+	Budget       int
 	Message      string
 }
 
