@@ -13,7 +13,7 @@ type Config struct {
 	// data
 	CsvFile       string `env:"CSV_FILE,required"`
 	EmailTemplate string `env:"EMAIL_TEMPLATE,required"`
-	Budget        int    `env:"BUDGET"`
+	Budget        int    `env:"BUDGET"` // equal to 0 if not specified
 	// testing
 	DryRun            bool   `env:"DRY_RUN" envDefault:"false"`
 	DebugMode         bool   `env:"DEBUG_MODE" envDefault:"false"`

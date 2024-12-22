@@ -61,7 +61,11 @@
         <div class="box">
             <p>Hey, <strong>{{.GifterName}}</strong>!</p>
             <p>You are the Secret Santa for: <strong>{{.ReceiverName}}</strong> 🎁</p>
+            {{if .Budget}}
             <p>Gift budget: <strong>{{.Budget}} €</strong> 💸</p>
+            {{else}}
+            <p>No budget has been set for this exchange. Feel free to surprise your match! 🎉</p>
+            {{end}}
             <div class="message">{{.Message}}</div>
             <div class="icons">🦌⛄</div>
             <p>Wishing you a Merry Christmas! ✨</p>
