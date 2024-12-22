@@ -9,11 +9,14 @@ import (
 )
 
 type Config struct {
+	Smtp email.SmtpConfig
+	// data
+	CsvFile       string `env:"CSV_FILE,required"`
+	EmailTemplate string `env:"EMAIL_TEMPLATE,required"`
+	Budget        int    `env:"BUDGET"`
+	// testing
 	DebugMode         bool   `env:"DEBUG_MODE" envDefault:"false"`
-	CsvFile           string `env:"CSV_FILE,required"`
-	Smtp              email.SmtpConfig
 	EmailReceiverTest string `env:"EMAIL_RECEIVER_TEST,required"`
-	EmailTemplate     string `env:"EMAIL_TEMPLATE,required"`
 }
 
 func NewConfig() Config {
