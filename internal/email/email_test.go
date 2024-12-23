@@ -16,6 +16,7 @@ func TestParseHtml(t *testing.T) {
 		GifterName:   "John Doe",
 		GifterEmail:  "fake@email.com",
 		ReceiverName: "Jane Doe",
+		Budget:       1,
 		Message:      "Test message",
 	}
 	result, err := ParseHtml(templatePath, data)

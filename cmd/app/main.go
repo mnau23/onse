@@ -26,12 +26,16 @@ func main() {
 	}
 
 	pairings := helpers.GeneratePairings(participants)
-	emailDataList := helpers.GetEmailData(participants, pairings)
+	emailDataList := helpers.GetEmailData(participants, pairings, config.Budget)
 
 	for _, ed := range emailDataList {
 		body, err := email.ParseHtml(config.EmailTemplate, ed)
 		if err != nil {
 			log.Fatalf("error parsing template: %s", err)
+		}
+
+		if config.DryRun {
+			break
 		}
 
 		var receiverEmail string
@@ -41,10 +45,15 @@ func main() {
 			receiverEmail = ed.GifterEmail
 		}
 
-		smtpErr := smtp.Send(config.EmailSender, receiverEmail, body)
+		smtpErr := smtp.Send(receiverEmail, body)
 		if smtpErr != nil {
 			log.Fatalf("error sending email: %s", err)
 		}
 	}
-	fmt.Println("\n📬 emails sent!")
+
+	if config.DryRun {
+		fmt.Println("\n[DRY RUN]: emails will not be sent.")
+	} else {
+		fmt.Println("\n📬 emails sent!")
+	}
 }
