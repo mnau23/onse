@@ -3,6 +3,7 @@ package helpers
 import (
 	"testing"
 
+	mail_checker "github.com/FGRibreau/mailchecker/v6/platform/go"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -17,4 +18,27 @@ func TestGetParticipants(t *testing.T) {
 	assert.Equal(t, "alice@fake.com", participants[2].Email)
 	assert.Equal(t, []int{2, 3}, participants[3].Exclusions)
 	assert.Equal(t, "whatsup", participants[3].Message)
+}
+
+func TestIsValidEmail(t *testing.T) {
+	tests := []struct {
+		email    string
+		expected bool
+	}{
+		{"test@example.com", true},  // valid
+		{"test@fake.com", true},     // valid
+		{"invalid-email", false},    // invalid
+		{"@wrong.com", false},       // invalid
+		{"user@domain..com", false}, // invalid
+		{"user@yopmail.com", false}, // invalid
+	}
+
+	for _, test := range tests {
+		t.Run(test.email, func(t *testing.T) {
+			result := mail_checker.IsValid(test.email)
+			if result != test.expected {
+				t.Errorf("IsValidEmail(%q): %t - expected: %t", test.email, result, test.expected)
+			}
+		})
+	}
 }

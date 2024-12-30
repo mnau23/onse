@@ -8,6 +8,8 @@ import (
 	"io"
 	"os"
 	"strconv"
+
+	mail_checker "github.com/FGRibreau/mailchecker/v6/platform/go"
 )
 
 type Participant struct {
@@ -47,10 +49,16 @@ func GetParticipants(filename string) ([]Participant, error) {
 		participantId, _ := strconv.Atoi(record[0])
 		exclusions, _ := getExclusions(record[3])
 
+		// validate email address syntax and if disposable
+		email := record[2]
+		if !mail_checker.IsValid(email) {
+			return nil, fmt.Errorf("found invalid participant email '%s'", email)
+		}
+
 		participants = append(participants, Participant{
 			Id:         participantId,
 			Name:       record[1],
-			Email:      record[2],
+			Email:      email,
 			Exclusions: exclusions,
 			Message:    record[4],
 		})
