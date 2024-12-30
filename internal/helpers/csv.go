@@ -6,6 +6,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"net/mail"
 	"os"
 	"strconv"
 )
@@ -46,11 +47,15 @@ func GetParticipants(filename string) ([]Participant, error) {
 		// parse row elements
 		participantId, _ := strconv.Atoi(record[0])
 		exclusions, _ := getExclusions(record[3])
+		email := record[2]
+		if !IsValidEmail(email) {
+			return nil, fmt.Errorf("found invalid participant email '%s'", email)
+		}
 
 		participants = append(participants, Participant{
 			Id:         participantId,
 			Name:       record[1],
-			Email:      record[2],
+			Email:      email,
 			Exclusions: exclusions,
 			Message:    record[4],
 		})
@@ -68,4 +73,11 @@ func getExclusions(field string) ([]int, error) {
 	}
 
 	return exclusions, nil
+}
+
+// validate email address based on RFC-5322
+func IsValidEmail(email string) bool {
+	_, err := mail.ParseAddress(email)
+	return err == nil
+	// TODO: add a check on disposable emails?
 }
