@@ -6,9 +6,10 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"net/mail"
 	"os"
 	"strconv"
+
+	mail_checker "github.com/FGRibreau/mailchecker/v6/platform/go"
 )
 
 type Participant struct {
@@ -47,8 +48,10 @@ func GetParticipants(filename string) ([]Participant, error) {
 		// parse row elements
 		participantId, _ := strconv.Atoi(record[0])
 		exclusions, _ := getExclusions(record[3])
+
+		// validate email address syntax and if disposable
 		email := record[2]
-		if !IsValidEmail(email) {
+		if !mail_checker.IsValid(email) {
 			return nil, fmt.Errorf("found invalid participant email '%s'", email)
 		}
 
@@ -73,11 +76,4 @@ func getExclusions(field string) ([]int, error) {
 	}
 
 	return exclusions, nil
-}
-
-// validate email address based on RFC-5322
-func IsValidEmail(email string) bool {
-	_, err := mail.ParseAddress(email)
-	return err == nil
-	// TODO: add a check on disposable emails?
 }
