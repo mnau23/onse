@@ -37,7 +37,7 @@ func TestIsValidEmail(t *testing.T) {
 		t.Run(test.email, func(t *testing.T) {
 			result := mail_checker.IsValid(test.email)
 			if result != test.expected {
-				t.Errorf("IsValidEmail(%q): %v - expected: %v", test.email, result, test.expected)
+				t.Errorf("IsValidEmail(%q): %t - expected: %t", test.email, result, test.expected)
 			}
 		})
 	}
