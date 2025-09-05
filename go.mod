@@ -3,7 +3,7 @@ module onse
 go 1.23.3
 
 require (
-	github.com/FGRibreau/mailchecker/v6 v6.0.14
+	github.com/FGRibreau/mailchecker/v6 v6.0.18
 	github.com/caarlos0/env/v6 v6.10.1
 	github.com/joho/godotenv v1.5.1
 	github.com/stretchr/testify v1.10.0
