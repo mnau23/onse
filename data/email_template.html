@@ -35,19 +35,15 @@
                 font-weight: 600;
                 color: #ffcccc;
             }
-            .receiver {
-                margin-top: 4px;
-                font-size: 1.05em;
-                font-weight: bold;
-                color: #ffffff;
-            }
-            .budget {
-                background: rgba(255, 215, 0, 0.15);
-                border-left: 4px solid gold;
+            .value {
+                background: rgba(255, 77, 77, 0.12);
+                border-left: 4px solid #ff4d4d;
                 padding: 10px 14px;
                 border-radius: 10px;
                 margin-top: 10px;
-                color: #ffffff;
+                color: #fff;
+                font-size: 1.05em;
+                font-weight: bold;
             }
             .message {
                 margin-top: 24px;
@@ -73,15 +69,15 @@
 
             <div class="section">
                 <div class="label">Are you ready? Find the best gift for:</div>
-                <div class="receiver">{{.ReceiverName}}</div>
+                <div class="value">{{.ReceiverName}}</div>
             </div>
 
             <div class="section">
                 <div class="label">Budget:</div>
                 {{if .Budget}}
-                    <div class="budget">{{.Budget}} € 💸</div>
+                    <div class="value">{{.Budget}} €</div>
                 {{else}}
-                    <div class="budget">No budget specified</div>
+                    <div class="value">No budget specified</div>
                 {{end}}
             </div>
 
