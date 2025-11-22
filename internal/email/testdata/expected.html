@@ -1,73 +1,92 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Onse</title>
-    
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f9f9f9;
-            color: #333;
-            text-align: center;
-            padding: 20px;
-        }
-        .container {
-            background-color: #ffffff;
-            border: 1px solid #dddddd;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        .header {
-            background-color: #ff4c4c;
-            color: white;
-            padding: 10px;
-            border-radius: 10px 10px 0 0;
-            font-size: 2em;
-        }
-        .box {
-            margin: 20px 0;
-        }
-        .message {
-             
-            background-color: #ffefc5;
-            color: #d2691e;
-            font-style: italic;
-            padding: 10px;
-            border-radius: 5px;
-            margin-top: 20px;
-        }
-        .icons {
-            margin: 20px 0;
-            font-size: 2em;
-        }
-        .footer {
-            margin-top: 20px;
-            font-size: 0.9em;
-            color: #888;
-        }
-        .footer a {
-            text-decoration: none;
-            color: #ff4c4c;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="header">🎄 Onse 🎄</div>
-        <div class="box">
-            <p>Hey, <strong>John Doe</strong>!</p>
-            <p>You are the Secret Santa for: <strong>Jane Doe</strong> 🎁</p>
-            <p>Gift budget: <strong>1 €</strong> 💸</p>
-            <div class="message">Test message</div>
-            <div class="icons">🦌⛄</div>
-            <p>Wishing you a Merry Christmas! ✨</p>
+    <head>
+        <title>Onse Secret Santa</title>
+        <meta charset="utf-8">
+        <style>
+            body {
+                font-family: "Inter", Arial, sans-serif;
+                background: #111;
+                margin: 0;
+                padding: 32px 12px;
+                color: #eee;
+            }
+            .card {
+                max-width: 480px;
+                margin: auto;
+                background: #1a1a1a;
+                border-radius: 20px;
+                padding: 32px;
+                box-shadow: 0 0 28px rgba(255, 0, 65, 0.15);
+                border: 1px solid rgba(255, 0, 65, 0.25);
+            }
+            .header {
+                text-align: center;
+                font-size: 1.9em;
+                font-weight: 700;
+                color: #ff4d4d;
+                margin-bottom: 12px;
+                letter-spacing: 0.5px;
+            }
+            .section {
+                margin: 20px 0 10px 0;
+            }
+            .label {
+                font-weight: 600;
+                color: #ffcccc;
+            }
+            .value {
+                background: rgba(255, 77, 77, 0.12);
+                border-left: 4px solid #ff4d4d;
+                padding: 10px 14px;
+                border-radius: 10px;
+                margin-top: 10px;
+                color: #fff;
+                font-size: 1.05em;
+                font-weight: bold;
+            }
+            .message {
+                margin-top: 24px;
+                text-align: center;
+                font-size: 0.95em;
+                color: #bbb;
+            }
+            .footer {
+                margin-top: 28px;
+                text-align: center;
+                font-size: 0.9em;
+                color: #777;
+            }
+            .footer a {
+                color: #ff4d4d;
+                text-decoration: none;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="card">
+            <div class="header">Onse Secret Santa 🎅🏻</div>
+
+            <div class="section">
+                <div class="label">Are you ready? Find the best gift for:</div>
+                <div class="value">Jane Doe</div>
+            </div>
+
+            <div class="section">
+                <div class="label">Budget:</div>
+                
+                    <div class="value">1 €</div>
+                
+            </div>
+
+            <div class="message">
+                Wishing you a Merry Christmas and lots of fun in this Secret Santa! ✨
+            </div>
+
+            <div class="footer">
+                Made with ❤️ and 🤖 by <a href="https://github.com/mnau23" target="_blank">mnau23</a> © 2025
+            </div>
+
         </div>
-        <div class="footer">
-            <p>Made with ❤️ and ☕ by <a href="https://github.com/mnau23" target="_blank">mnau23</a> © 2024</p>
-        </div>
-    </div>
-</body>
+    </body>
 </html>
