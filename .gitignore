@@ -1,3 +1,7 @@
+# Data files
 data/participants.csv
 .env
+
+# Other files
+data/unused
 todo.md
