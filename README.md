@@ -1,4 +1,4 @@
-# Onse
+# Onse 🎅🏻
 
 > A Go application to organize Secret Santa with friends.
 
