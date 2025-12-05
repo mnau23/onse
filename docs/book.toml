@@ -1,0 +1,9 @@
+[book]
+authors = ["mnau23"]
+language = "en"
+src = "src"
+title = "Documentation"
+
+[build]
+build-dir = "book"
+create-missing = true

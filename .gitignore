@@ -1,3 +1,5 @@
+# mdBook output
+docs/book
 # Data files
 data/participants.csv
 .env
