@@ -1,9 +1,10 @@
 # mdBook output
 docs/book
+# Node.js cache
+node_modules
 # Data files
 data/participants.csv
 .env
-
 # Other files
 data/unused
 todo.md
