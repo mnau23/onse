@@ -1,0 +1,5 @@
+id,name,email,exclusions,message
+1,Alice,<EMAIL>,"[4]","custom message here"
+2,Bob,<EMAIL>,"[]","custom message here"
+3,JaneDoe,<EMAIL>,"[]","custom message here"
+4,JohnDoe,<EMAIL>,"[1]","custom message here"
