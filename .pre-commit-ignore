@@ -1,0 +1,2 @@
+# List files to ignore for pre-commit hooks
+internal/email/testdata/expected.html
