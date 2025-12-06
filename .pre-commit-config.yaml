@@ -19,7 +19,9 @@ repos:
     hooks:
       - id: typos
 
-  # - repo: https://github.com/golangci/golangci-lint
-  #   rev: v1.55.2
-  #   hooks:
-  #     - id: golangci-lint
+  - repo: https://github.com/golangci/golangci-lint
+    rev: v2.7.1
+    hooks:
+      - id: golangci-lint
+        args: ["run", "./..."]
+        pass_filenames: false
