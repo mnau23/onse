@@ -26,12 +26,10 @@ repos:
   #      args: ["cmd", "./..."] # note: changed cmd from run
   #      pass_filenames: false
 
-  #- repo: https://github.com/tekwizely/pre-commit-golang
-  #  rev: v1.0.0-rc.1
-  #  hooks:
-  #    - id: go-fmt
-  #      args: [-w]
-  #    - id: go-imports
-  #      args: [-w]
-  #    - id: go-vet
-  #    - id: go-mod-tidy
+  - repo: https://github.com/tekwizely/pre-commit-golang
+    rev: v1.0.0-rc.4
+    hooks:
+      - id: go-mod-tidy
+      - id: go-imports # includes go-fmt
+        args: [-w]
+      - id: go-vet
