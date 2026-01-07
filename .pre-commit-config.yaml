@@ -32,4 +32,4 @@ repos:
       - id: go-mod-tidy
       - id: go-imports # includes go-fmt
         args: [-w]
-      - id: go-vet
+      - id: go-vet-mod
