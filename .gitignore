@@ -1,5 +1,8 @@
 # mdBook output
 docs/book
+# Node.js dependencies
+node_modules
+
 # Data files
 data/participants.csv
 .env

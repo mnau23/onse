@@ -4,7 +4,7 @@ import (
 	"log"
 	"onse/internal/email"
 
-	"github.com/caarlos0/env/v6"
+	"github.com/caarlos0/env/v11"
 	"github.com/joho/godotenv"
 )
 

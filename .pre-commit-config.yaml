@@ -1,0 +1,28 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+        - id: check-toml
+        - id: check-yaml
+        - id: end-of-file-fixer
+        - id: trailing-whitespace
+
+  # archived - but still works
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: v4.0.0-alpha.8
+    hooks:
+      - id: prettier
+        types: [markdown]
+
+  - repo: https://github.com/crate-ci/typos
+    rev: v1.39.0
+    hooks:
+      - id: typos
+
+  - repo: https://github.com/tekwizely/pre-commit-golang
+    rev: v1.0.0-rc.4
+    hooks:
+      - id: go-mod-tidy
+      - id: go-imports # includes go-fmt
+        args: [-w]
+      - id: go-vet-mod
